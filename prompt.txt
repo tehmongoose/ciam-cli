@@ -1,0 +1,55 @@
+Overview
+
+Create a CLI for my CIAM platform. This will be used by myself and my support staff. It will call PingOne for to authenticate, and then it will call our CIAM APIs to perform operations on a set of domain objects.
+Domain objects:
+- Store: This is a tenancy that represents a product line. It allows segration of authorization for our user base
+- Organization: This is a company. 
+- User: This is a person that logs in to use a system
+- Group: This is a user group
+- Product: This is a thing a user can have access to.
+- Client: This is a couple things. It has a variey of types (CIAM-B2B, S2S, Webapp), but they all represent systems authenticating (not people)
+
+
+General requirements:
+There should be a .env file created to store per environment client id / client secret pairs. There will be 2 per environment (1 is the general token which allows all operations expect for Client operations. The other token is specifically for Client operations)
+There should a .config-ciam-cli file that is the current environment, region, and store-id that they want to run comands against  
+
+All operations should continue to support the --verbose & -v flags. The output should be the highly formatted that makes it easy to see what where one operation starts / ends. Use ▼ for the begining of an operation. Use ▲ for the end of an operation
+All output from the API calls should still be put into an output-<timestamp>.json
+
+Each Domain object type should have a get, create, update, delete, and import handler file as a separate file. 
+
+
+Command definitions:
+# this allows users to set what env they want to operate in. Save this date to .cli-config file
+ciam.py config get|list|use
+#standard way to set region and environment into the .cli-config file
+ciam.py config use --region us --env qa
+#short hand way to set region and environment into the .cli-config file. Parse the "us" as the region. Parse the "qa" as the environment
+ciam.py config use us-qa
+
+# same history functionality we have. default returns last 10 commands
+ciam.py history 
+# return the last 100. 100 is the max
+ciam.py history -n 100
+# re-run the command. It should correspond to the numbers that is output from ciam.py history command's output
+ciam.py history -r 5
+
+# Allows the user to see the full token created by the cli. They should be unmasked. It should also show the client id and secret
+ciam.py tokens view
+
+The following are domain object operations. All require the "store" header to be added to the requests except for the "store" domain object. The store Id should be passed on the cli like --store-id or -si 
+
+list - throw a not-supported message at this time message and do nothing
+get - list the id or ids passed in via arg. This should be the json response for that ID.
+create - throw a not-supported message at this time message and do nothing
+update - throw a not-supported message at this time message and do nothing
+delete - throw a not-supported message at this time message and do nothing
+import - takes a list of files. They will be the same format we currently have in the examples directory. schema: {"type": "<domain object type>", "<domain object type>": {[<list of domain objects that are all of the specified type]}}
+
+# domain object operations
+ciam.py users list|get|create|update|delete|import
+ciam.py groups list|get|create|update|delete
+ciam.py orgs list|get|create|update|delete|apply|diff
+ciam.py stores list|get|create|update|delete|apply|diff
+ciam.py products list|get|create|update|delete

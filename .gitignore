@@ -1,0 +1,86 @@
+# .gitignore for ciam-cli
+# Purpose: prevent secrets, tokens, runtime artifacts, and build outputs from being committed.
+
+# -----------------------------
+# Secrets & configuration
+# -----------------------------
+.env
+.env.*
+*.env.local
+.config-ciam-cli
+
+# -----------------------------
+# CLI runtime artifacts
+# -----------------------------
+# Timestamped JSON outputs produced by the CLI
+output-*.json
+# Generic logs
+*.log
+# Command history files
+.ciam-cli-history.jsonl
+.ciam-cli-history*
+
+# -----------------------------
+# Python / packaging / build
+# -----------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+build/
+dist/
+.eggs/
+pip-wheel-metadata/
+
+# -----------------------------
+# Virtual environments
+# -----------------------------
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# -----------------------------
+# Testing / coverage
+# -----------------------------
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# -----------------------------
+# IDE / OS files
+# -----------------------------
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# -----------------------------
+# Shell / completion artifacts
+# -----------------------------
+ciam-cli-completion.bash
+ciam-cli-completion.zsh
+ciam-cli-completion.ps1
+
+# -----------------------------
+# Optional / Nice-to-have
+# -----------------------------
+node_modules/
+logs/
+tmp/
+*.tmp
+
+# -----------------------------
+# Keep these tracked explicitly (do NOT ignore)
+# -----------------------------
+# .env.example
+# README.md
+# requirements.txt / pyproject.toml
+# All source under ciam/
+# ciam.py
