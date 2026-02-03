@@ -79,7 +79,7 @@ tmp/
 # -----------------------------
 # Keep these tracked explicitly (do NOT ignore)
 # -----------------------------
-# .env.example
+!.env.example
 # README.md
 # requirements.txt / pyproject.toml
 # All source under ciam/
